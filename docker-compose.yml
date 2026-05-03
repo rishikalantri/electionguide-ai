@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=development
+      # Add GCP credentials here for TTS/Translation
+      # - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials.json
+    # volumes:
+    #   - ./backend/credentials.json:/app/credentials.json:ro
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend

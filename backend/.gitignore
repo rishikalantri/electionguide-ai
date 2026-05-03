@@ -1,0 +1,16 @@
+node_modules/
+output.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Secrets — never commit
+.env
+secrets/
+
+# Ignore all JSON files (service account keys, etc.)
+# but keep npm manifests that are already tracked
+*.json
+!package.json
+!package-lock.json
