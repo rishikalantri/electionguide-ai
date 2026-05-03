@@ -91,7 +91,8 @@ const Quiz = () => {
     try {
       const sessionId = `session-${Math.random().toString(36).substr(2, 9)}`;
       // This will hit the backend we created, handling mocked responses internally if no Firestore
-      await axios.post('http://localhost:5001/api/quiz/score', {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/quiz/score`, {
+
         sessionId,
         score,
         totalQuestions: quizData.length

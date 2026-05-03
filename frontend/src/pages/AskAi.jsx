@@ -184,7 +184,8 @@ const AskAi = ({ isPanel = false }) => {
         currentLanguage !== 'en'
           ? `(Please answer in the language corresponding to code: ${currentLanguage}) `
           : '';
-      const response = await axios.post('http://localhost:5001/api/chat', {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/chat`, {
+
         message: langPrefix + userMsg,
       });
       setMessages((prev) => [

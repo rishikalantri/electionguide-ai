@@ -25,7 +25,8 @@ export const LanguageProvider = ({ children }) => {
     if (currentLanguage === 'en') return text;
     
     try {
-      const response = await axios.post('http://localhost:5001/api/tools/translate', {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/tools/translate`, {
+
         text,
         targetLanguage: currentLanguage
       });
