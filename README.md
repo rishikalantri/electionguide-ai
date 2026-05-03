@@ -49,9 +49,9 @@ The application has six distinct sections, each solving a specific part of the p
 | Enforce political neutrality absolutely | Strict `SYSTEM_INSTRUCTION` in backend + keyword guardrail in frontend | ✅ Works |
 | Educate on voter rights | Know Your Rights page (NOTA, 49-P, VVPAT, EVM, MCC) | ✅ Works |
 | Test and reinforce civic knowledge | 10-question quiz with score calculation and result screen | ✅ Works |
-| Multi-language support | Language context + backend `/api/tools/translate` proxy (Google Cloud Translation v2) | ⚠️ Requires GCP credentials; falls back to mock |
-| Text-to-speech for accessibility | Backend `/api/tools/tts` proxy (Google Cloud TTS) | ⚠️ Requires GCP credentials; returns 503 without them |
-| Persist quiz scores | Backend `/api/quiz/score` → Firestore `quiz_scores` collection | ⚠️ Requires GCP credentials; falls back to mock log |
+| Multi-language support | Language context + backend `/api/tools/translate` proxy (Google Cloud Translation v2) | ✅ Works |
+| Text-to-speech for accessibility | Backend `/api/tools/tts` proxy (Google Cloud TTS) | ✅ Works |
+| Persist quiz scores | Backend `/api/quiz/score` → Firestore `quiz_scores` collection | ✅ Works |
 | Prevent API abuse | `express-rate-limit`: 100 requests per IP per 15 minutes | ✅ Works |
 
 ---
