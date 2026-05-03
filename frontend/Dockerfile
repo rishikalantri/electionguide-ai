@@ -2,11 +2,9 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-# Accept API URL as a build-time argument.
-# Cloud Run source deploy injects this via --set-build-env-vars.
-# Vite bakes it into the static JS bundle at build time.
-ARG VITE_API_URL
-ENV VITE_API_URL=${VITE_API_URL}
+# VITE_API_URL is resolved by Vite from .env.production at build time.
+# No Docker ARG needed — Vite reads .env.production automatically
+# when NODE_ENV=production (which is the default for npm run build).
 
 COPY package*.json ./
 RUN npm install
