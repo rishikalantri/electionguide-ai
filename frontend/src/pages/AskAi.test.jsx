@@ -12,12 +12,17 @@
 
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import axios from 'axios';
+import api from '../api';
 import AskAi, { isPoliticalQuery } from './AskAi';
 
 // ── Mocks ────────────────────────────────────────────────────────────────────
 
-vi.mock('axios');
+// Mock the centralized API client (axios instance from ../api.js)
+vi.mock('../api', () => ({
+  default: {
+    post: vi.fn(),
+  },
+}));
 
 // Mock LanguageContext
 vi.mock('../context/LanguageContext', () => ({
@@ -108,7 +113,7 @@ describe('AskAi Component', () => {
 
       // Axios should NOT have been called
       await waitFor(() => {
-        expect(axios.post).not.toHaveBeenCalled();
+      expect(api.post).not.toHaveBeenCalled();
       });
     });
   });
@@ -130,7 +135,7 @@ describe('AskAi Component', () => {
       });
 
       // The real API should NOT have been called
-      expect(axios.post).not.toHaveBeenCalled();
+      expect(api.post).not.toHaveBeenCalled();
     });
 
     it('shows guardrail for BJP mention', async () => {
@@ -144,7 +149,7 @@ describe('AskAi Component', () => {
         const lastBubble = botBubbles[botBubbles.length - 1];
         expect(lastBubble).toHaveTextContent('neutral');
       });
-      expect(axios.post).not.toHaveBeenCalled();
+      expect(api.post).not.toHaveBeenCalled();
     });
   });
 
@@ -181,7 +186,7 @@ describe('AskAi Component', () => {
   // ── 6. API error handling ───────────────────────────────────────────────────
   describe('API error handling', () => {
     beforeEach(() => {
-      axios.post.mockRejectedValue(new Error('Network Error'));
+      api.post.mockRejectedValue(new Error('Network Error'));
     });
 
     it('shows an error message when the API call fails', async () => {
@@ -213,7 +218,7 @@ describe('AskAi Component', () => {
   // ── 7. Successful API response ──────────────────────────────────────────────
   describe('Successful API response', () => {
     beforeEach(() => {
-      axios.post.mockResolvedValue({
+      api.post.mockResolvedValue({
         data: { reply: 'NOTA stands for None of the Above.' },
       });
     });

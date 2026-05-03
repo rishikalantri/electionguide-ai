@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, CheckCircle2, XCircle, ArrowRight, RotateCcw } from 'lucide-react';
 
@@ -91,7 +91,7 @@ const Quiz = () => {
     try {
       const sessionId = `session-${Math.random().toString(36).substr(2, 9)}`;
       // This will hit the backend we created, handling mocked responses internally if no Firestore
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/quiz/score`, {
+      await api.post('/api/quiz/score', {
 
         sessionId,
         score,

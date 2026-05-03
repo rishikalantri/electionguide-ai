@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const LanguageContext = createContext();
 
@@ -25,7 +25,7 @@ export const LanguageProvider = ({ children }) => {
     if (currentLanguage === 'en') return text;
     
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/tools/translate`, {
+      const response = await api.post('/api/tools/translate', {
 
         text,
         targetLanguage: currentLanguage

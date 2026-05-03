@@ -1,10 +1,12 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Quiz from './Quiz';
-import axios from 'axios';
+import api from '../api';
 
-// Mock axios for score submission
-vi.mock('axios');
+// Mock the centralized api client
+vi.mock('../api', () => ({
+  default: { post: vi.fn() },
+}));
 
 describe('Quiz Component', () => {
   it('renders the first question correctly', () => {
@@ -14,7 +16,7 @@ describe('Quiz Component', () => {
   });
 
   it('calculates score correctly and shows results after all questions', async () => {
-    axios.post.mockResolvedValue({ data: { message: 'Score saved' } });
+    api.post.mockResolvedValue({ data: { message: 'Score saved' } });
     render(<Quiz />);
     
     // Total 10 questions. For a score of 2/10, we'll answer the first two correctly and the rest incorrectly.

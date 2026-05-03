@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useLanguage } from '../context/LanguageContext';
 import { Send, Bot, AlertTriangle, Loader2, MessageSquare, ShieldCheck, ExternalLink, ChevronRight } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
@@ -184,8 +184,7 @@ const AskAi = ({ isPanel = false }) => {
         currentLanguage !== 'en'
           ? `(Please answer in the language corresponding to code: ${currentLanguage}) `
           : '';
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/chat`, {
-
+      const response = await api.post('/api/chat', {
         message: langPrefix + userMsg,
       });
       setMessages((prev) => [
